@@ -54,6 +54,7 @@ namespace Proiect_Slots
             balanta = Balanta;
             zileDeLaUltimaLogare = ZileDeLaUltimaLogare;
         }
+
     }
 }
 
