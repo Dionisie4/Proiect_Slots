@@ -10,10 +10,35 @@ namespace Proiect_Slots
     {
         static void Main(string[] args)
         {
-            Pacanea p1 = new Pacanea();
-            p1.SeteazaMiza(1);
+            while (true)
+            {
+                Roteste();
+            }
+        }
+        static public void Roteste()
+        {
 
-            Autentificare autentificare = new Autentificare();
+        Console.WriteLine("Introdu miza (1, 2, 3, 5, 10, 20):");
+        int miza = int.Parse(Console.ReadLine());
+
+        try
+        {
+            Pacanea.SeteazaMiza(miza);  // Setează miza
+            Item[] rezultate = Pacanea.Rotire();  // Rotire slot
+
+            Console.WriteLine($"Rezultatele rotirii: {rezultate[0].Simbol} {rezultate[1].Simbol} {rezultate[2].Simbol}");
+
+            int castig = Pacanea.VerificaCastig(rezultate, miza);
+            Console.WriteLine($"Balanța după rotire: {castig} monede");
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Eroare: {ex.Message}");
+        }
+        }
+
+        public static void Logare()
+        {
             Console.Write("Introdu numele: ");
             string nume = Console.ReadLine();
 
@@ -21,7 +46,7 @@ namespace Proiect_Slots
             string parola = Console.ReadLine();
 
             bool esteAdmin;
-            autentificare.Login(nume, parola, out esteAdmin);
+            Autentificare.Login(nume, parola, out esteAdmin);
         }
     }
 }

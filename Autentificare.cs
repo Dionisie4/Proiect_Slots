@@ -9,9 +9,9 @@ namespace Proiect_Slots
 {
     class Autentificare
     {
-        private string cale = "Utilizatori.txt";
+        private static string cale = "Utilizatori.txt";
 
-        public bool Login (string nume, string parola, out bool esteAdmin)
+        public static bool Login (string nume, string parola, out bool esteAdmin)
         {
             esteAdmin = false;
 
