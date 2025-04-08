@@ -36,7 +36,7 @@ namespace Proiect_Slots
             Random rnd = new Random();
             List<Item> listaPonderata = new List<Item>();
 
-            // Construim lista ponderată conform șanselor fiecărui item
+            
             foreach (var item in iteme)
             {
                 for (int i = 0; i < item.Sanse; i++)
@@ -45,7 +45,7 @@ namespace Proiect_Slots
                 }
             }
 
-            // Extragem aleatoriu 3 simboluri
+            
             Item[] rezultat = new Item[3];
             for (int i = 0; i < 3; i++)
             {
@@ -60,12 +60,12 @@ namespace Proiect_Slots
             if (rezultate[0] == rezultate[1] && rezultate[1] == rezultate[2])
             {
                 int castig = miza * rezultate[0].Multiplicator;
-                Console.WriteLine($"Felicitări! Ai câștigat {castig} monede!");
+                Console.WriteLine($"Ohooo, ai castigat {castig} credite!, opreste te acum cat esti pe plus (daca esti)");
                 return castig;
             }
             else
             {
-                Console.WriteLine("Mai încearcă! Poate vei avea noroc data viitoare.");
+                Console.WriteLine($"ai pierdut {miza} credite, csf");
                 return 0;
             }
         }

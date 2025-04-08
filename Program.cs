@@ -23,8 +23,8 @@ namespace Proiect_Slots
 
         try
         {
-            Pacanea.SeteazaMiza(miza);  // Setează miza
-            Item[] rezultate = Pacanea.Rotire();  // Rotire slot
+            Pacanea.SeteazaMiza(miza); 
+            Item[] rezultate = Pacanea.Rotire();  
 
             Console.WriteLine($"Rezultatele rotirii: {rezultate[0].Simbol} {rezultate[1].Simbol} {rezultate[2].Simbol}");
 
