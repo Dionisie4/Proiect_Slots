@@ -29,7 +29,8 @@ namespace Proiect_Slots
             Console.WriteLine($"Rezultatele rotirii: {rezultate[0].Simbol} {rezultate[1].Simbol} {rezultate[2].Simbol}");
 
             int castig = Pacanea.VerificaCastig(rezultate, miza);
-            Console.WriteLine($"Balanța după rotire: {castig} monede");
+            Console.WriteLine($"Balanta dupa rotire: {castig} monede");
+
         }
         catch (Exception ex)
         {
