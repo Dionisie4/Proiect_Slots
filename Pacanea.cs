@@ -16,7 +16,8 @@ namespace Proiect_Slots
             new Item("Cireșe", "cireasa", 2, 75),
             new Item("Clopoțel", "clopotel", 5, 50),
             new Item("Stea", "stea", 10, 20),
-            new Item("Septari", "septar", 20, 10)
+            new Item("Septari", "septar", 20, 10),
+            new Item("Dublu Septari", "77", 100, 1)
         };
 
         public static void SeteazaMiza(int valoare)

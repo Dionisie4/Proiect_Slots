@@ -8,13 +8,31 @@ namespace Proiect_Slots
 {
     class Program
     {
+        
+
         static void Main(string[] args)
         {
+
+            Logare();
             while (true)
             {
                 Roteste();
             }
         }
+
+        static public void Logare()
+        {
+            Console.Write("Introdu numele: ");
+            string nume = Console.ReadLine();
+
+            Console.Write("Introdu parola: ");
+            string parola = Console.ReadLine();
+
+            bool esteAdmin;
+            Autentificare.Login(nume, parola, out esteAdmin);
+        }
+
+
         static public void Roteste()
         {
 
@@ -38,16 +56,8 @@ namespace Proiect_Slots
         }
         }
 
-        public static void Logare()
-        {
-            Console.Write("Introdu numele: ");
-            string nume = Console.ReadLine();
-
-            Console.Write("Introdu parola: ");
-            string parola = Console.ReadLine();
-
-            bool esteAdmin;
-            Autentificare.Login(nume, parola, out esteAdmin);
-        }
+       
+            
+        
     }
 }
