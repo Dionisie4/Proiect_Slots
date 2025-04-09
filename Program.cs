@@ -12,15 +12,23 @@ namespace Proiect_Slots
 
         static void Main(string[] args)
         {
+            bool autentificat = false;
+            bool esteAdmin = false;
 
-            Logare();
+            while (!autentificat)
+            {
+                autentificat = Logare(out esteAdmin);
+            }
+
+            Console.WriteLine($"Autentificare reușită! Bine ai venit, {(esteAdmin ? "Administrator" : "Utilizator")}.");
+
             while (true)
             {
                 Roteste();
             }
         }
 
-        static public void Logare()
+        static public bool Logare(out bool esteAdmin)
         {
             Console.Write("Introdu numele: ");
             string nume = Console.ReadLine();
@@ -28,36 +36,33 @@ namespace Proiect_Slots
             Console.Write("Introdu parola: ");
             string parola = Console.ReadLine();
 
-            bool esteAdmin;
-            Autentificare.Login(nume, parola, out esteAdmin);
+            // Corectăm apelul metodei Login, acum returnează valoarea
+            return Autentificare.Login(nume, parola, out esteAdmin);
         }
-
 
         static public void Roteste()
         {
+            Console.WriteLine("Introdu miza (1, 2, 3, 5, 10, 20):");
+            int miza = int.Parse(Console.ReadLine());
 
-        Console.WriteLine("Introdu miza (1, 2, 3, 5, 10, 20):");
-        int miza = int.Parse(Console.ReadLine());
+            try
+            {
+                Pacanea.SeteazaMiza(miza);
+                Item[] rezultate = Pacanea.Rotire();
 
-        try
-        {
-            Pacanea.SeteazaMiza(miza); 
-            Item[] rezultate = Pacanea.Rotire();  
+                Console.WriteLine($"Rezultatele rotirii: {rezultate[0].Simbol} {rezultate[1].Simbol} {rezultate[2].Simbol}");
 
-            Console.WriteLine($"Rezultatele rotirii: {rezultate[0].Simbol} {rezultate[1].Simbol} {rezultate[2].Simbol}");
-
-            int castig = Pacanea.VerificaCastig(rezultate, miza);
-            Console.WriteLine($"Balanta dupa rotire: {castig} monede");
-
-        }
-        catch (Exception ex)
-        {
-            Console.WriteLine($"Eroare: {ex.Message}");
-        }
+                int castig = Pacanea.VerificaCastig(rezultate, miza);
+                Console.WriteLine($"Balanta după rotire: {castig} credite");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Eroare: {ex.Message}");
+            }
         }
 
-       
-            
-        
+
+
+
     }
 }
