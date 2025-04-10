@@ -11,9 +11,10 @@ namespace Proiect_Slots
     {
         private static string cale = "Utilizatori.txt";
 
-        public static bool Login (string nume, string parola, out bool esteAdmin)
+        public static bool Login (string nume, string parola, out bool esteAdmin, out int balanta)
         {
             esteAdmin = false;
+            balanta = 0;
 
             if (!File.Exists(cale))
             {
@@ -23,28 +24,46 @@ namespace Proiect_Slots
             foreach(var linie in File.ReadLines(cale))
             {
                 string[] parti = linie.Split('.');
-                if (parti.Length == 3 )
+                if (parti.Length == 4)
                 {
                     string numeDinFisier = parti[0];
                     string parolaDinFisier = parti[1];
-                    bool statusAdmin = parti[2].Trim().ToLower() == "true" ;
-                    
+                    bool statusAdmin = parti[2].Trim().ToLower() == "true";
+                    int balantaDinFisier = int.Parse(parti[3]);
+
                     if (numeDinFisier == nume && parolaDinFisier == parola)
                     {
                         esteAdmin = statusAdmin;
-                        Console.WriteLine($"Autentificare reusita!{(esteAdmin ? "Administrator":"Utilizator Obisnuit")}");
+                        balanta = balantaDinFisier;
+                        Console.WriteLine($"Autentificare reusita!{(esteAdmin ? "Administrator" : "Utilizator Obisnuit")}");
                         return true;
                     }
                 }
-
             }
-                Console.WriteLine("Nume sau Parola gresite!");
-                return false;
+            Console.WriteLine("Nume sau Parola gresite!");
+            return false;
 
+        }
 
-
-
-
+        public static void SalveazaBalanta(string nume, int balanta)
+        {
+            if (!File.Exists(cale))
+            {
+                Console.WriteLine("Fișierul cu utilizatori nu există!");
+                return;
+            }
+            var linii = File.ReadAllLines(cale);
+            for (int i = 0; i < linii.Length; i++)
+            {
+                string[] parti = linii[i].Split('.');
+                if (parti.Length == 4 && parti[0] == nume)
+                {
+                    parti[3] = balanta.ToString();
+                    linii[i] = string.Join(".", parti);
+                    break;
+                }
+            }
+            File.WriteAllLines(cale, linii);
         }
     }
 }

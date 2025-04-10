@@ -14,21 +14,22 @@ namespace Proiect_Slots
         {
             bool autentificat = false;
             bool esteAdmin = false;
+            Utilizator jucator = null;
 
             while (!autentificat)
             {
-                autentificat = Logare(out esteAdmin);
+                autentificat = Logare(out esteAdmin, out jucator);
             }
 
-            Console.WriteLine($"Autentificare reușită! Bine ai venit, {(esteAdmin ? "Administrator" : "Utilizator")}.");
+            //Console.WriteLine($"Autentificare reusita! Bine ai venit, {(esteAdmin ? "Administrator" : "Utilizator")}.");
 
-            while (true)
+            while (jucator.Balanta > 0)
             {
-                Roteste();
+                Roteste(jucator);
             }
         }
 
-        static public bool Logare(out bool esteAdmin)
+        static public bool Logare(out bool esteAdmin, out Utilizator jucator)
         {
             Console.Write("Introdu numele: ");
             string nume = Console.ReadLine();
@@ -36,24 +37,52 @@ namespace Proiect_Slots
             Console.Write("Introdu parola: ");
             string parola = Console.ReadLine();
 
-            // Corectăm apelul metodei Login, acum returnează valoarea
-            return Autentificare.Login(nume, parola, out esteAdmin);
+            bool succes = Autentificare.Login(nume, parola, out esteAdmin, out int balanta);
+
+            if (succes)
+            {
+                jucator = new Utilizator(nume, parola, esteAdmin, balanta);
+            }
+            else
+            {
+                jucator = null;
+            }
+            return succes;
         }
 
-        static public void Roteste()
+        static public void Roteste(Utilizator jucator)
         {
+            Console.WriteLine($"Balanta actuală: {jucator.Balanta} credite");
+
+            if (jucator.Balanta <= 0)
+            {
+                Console.WriteLine("Nu ai suficiente credite pentru a juca!");
+                return;
+                
+            }
+
             Console.WriteLine("Introdu miza (1, 2, 3, 5, 10, 20):");
             int miza = int.Parse(Console.ReadLine());
 
+            if (miza > jucator.Balanta)
+            {
+                Console.WriteLine("Nu ai suficiente credite pentru această miză!");
+                return;
+            }
+
+
             try
             {
+                jucator.Balanta -= miza;
                 Pacanea.SeteazaMiza(miza);
                 Item[] rezultate = Pacanea.Rotire();
 
                 Console.WriteLine($"Rezultatele rotirii: {rezultate[0].Simbol} {rezultate[1].Simbol} {rezultate[2].Simbol}");
 
                 int castig = Pacanea.VerificaCastig(rezultate, miza);
-                Console.WriteLine($"Balanta după rotire: {castig} credite");
+                jucator.Balanta += castig;
+
+                Autentificare.SalveazaBalanta(jucator.Nume, jucator.Balanta);
             }
             catch (Exception ex)
             {

@@ -13,11 +13,11 @@ namespace Proiect_Slots
 
         private static List<Item> iteme = new List<Item>
         {
-            new Item("Cireșe", "cireasa", 2, 75),
-            new Item("Clopoțel", "clopotel", 5, 50),
-            new Item("Stea", "stea", 10, 20),
-            new Item("Septari", "septar", 20, 10),
-            new Item("Dublu Septari", "77", 100, 1)
+            new Item("Cireșe", "cireasa", 2, 50),    
+            new Item("Clopoțel", "clopotel", 5, 30),
+            new Item("Stea", "stea", 10, 13),         // Denumire item, aspect item, multiplicator, sansa de aparitie;
+            new Item("Septari", "7", 20, 5),
+            new Item("Dublu Septari", "77", 100, 2)
         };
 
         public static void SeteazaMiza(int valoare)

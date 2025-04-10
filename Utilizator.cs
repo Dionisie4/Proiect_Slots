@@ -11,7 +11,7 @@ namespace Proiect_Slots
         private string nume;
         private string parola;
         private int balanta;
-        private int zileDeLaUltimaLogare;
+        private bool esteAdmin;
         
 
         public string Nume
@@ -36,23 +36,53 @@ namespace Proiect_Slots
             protected set { parola = value; }
         }
 
+        public bool EsteAdmin
+        {
+            get { return esteAdmin; }
+            private set { esteAdmin = value; }
+        }
         public int Balanta
         {
             get { return balanta; }
-            protected set { balanta = value; }
+            set
+            {
+                if (value >= 0)
+                {
+                    balanta = value;
+                }
+                else
+                {
+                    throw new ArgumentException("Balanta nu poate fi negativa!");
+                }
+            }
         }
-        public int ZileDeLaUltimaLogare
-        {
-            get { return zileDeLaUltimaLogare; }
-            private set { zileDeLaUltimaLogare = value; }
-        }
+        
 
-        public Utilizator (string Nume, string Parola, int Balanta, int ZileDeLaUltimaLogare)
+
+        public Utilizator (string Nume, string Parola, bool EsteAdmin, int Balanta)
         {
             nume = Nume;
             parola = Parola;
+            esteAdmin = EsteAdmin;
             balanta = Balanta;
-            zileDeLaUltimaLogare = ZileDeLaUltimaLogare;
+           
+        }
+
+        public void SeteazaBalanta(int valoare)
+        {
+            if (valoare >= 0)
+            {
+                balanta = valoare;
+            }
+            else
+            {
+                throw new ArgumentException("Balanta nu poate fi negativa!");
+            }
+        }
+
+        public void ActualizeazaBalanta(int castig)
+        {
+            Balanta += castig;
         }
 
     }
